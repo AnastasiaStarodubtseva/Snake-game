@@ -12,7 +12,7 @@ let box = 32;
 let score = 0;
 
 let food = {
-  x: Math.floor((Math.random() * 17 + 1)) * box, //Math.random() возвращает случайное число 0-1  Math.floor() - округление вниз. Округляет аргумент до ближайшего меньшего целого
+  x: Math.floor((Math.random() * 17 + 1)) * box, //Math.random() возвращает случайное число 0-1 | Math.floor() - округление вниз.Округляет аргумент до ближайшего меньшего целого
   y: Math.floor((Math.random() * 15 + 3)) * box
 };
 
@@ -52,12 +52,27 @@ function drawGame() {
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
 
-  snake.pop(); // .pop удаляет последний элемент в массиве
+  if(snakeX == food.x && snakeY == food.y) {
+    score++;
+    food = {
+      x: Math.floor((Math.random() * 17 + 1)) * box,
+      y: Math.floor((Math.random() * 15 + 3)) * box
+    };
+  } else {
+    snake.pop(); // .pop удаляет последний элемент в массиве
+  }
 
   if(dir == "left") snakeX -= box;
   if(dir == "right") snakeX += box;
   if(dir == "up") snakeY -= box;
-  if(dir == "down") snakeY -= box;
+  if(dir == "down") snakeY += box;
+
+  let newHead = {
+    x: snakeX,
+    y: snakeY
+  };
+
+  snake.unshift(newHead);  //добавляет элемент в начало массива и возвращает новую длину массива
 }
 
 let game = setInterval(drawGame, 100); //функция drawGame будет вызываться каждые 100милисекунд
