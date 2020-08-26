@@ -37,6 +37,13 @@ function direction(event) {
     dir = "down";
 }
 
+function eatTail(head, arr) {
+  for(let i = 0; i < arr.length; i++) { //перебор всех элементов змейки
+    if(head.x == arr[i].x && head.y == arr[i].y)
+      clearInterval(game);
+  }
+}
+
 function drawGame() {
   ctx.drawImage(ground, 0, 0); //координаты по X и Y
   ctx.drawImage(foodImg, food.x, food.y);
@@ -75,6 +82,8 @@ function drawGame() {
     x: snakeX,
     y: snakeY
   };
+
+  eatTail(newHead, snake);
 
   snake.unshift(newHead);  //добавляет элемент в начало массива и возвращает новую длину массива
 }
