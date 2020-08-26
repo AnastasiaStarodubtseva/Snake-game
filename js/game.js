@@ -42,7 +42,7 @@ function drawGame() {
   ctx.drawImage(foodImg, food.x, food.y);
 
   for (let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = "green"; //fillStyle устанавливает или возвращает цвет, градиент или шаблон, используемый для заливки графического объекта
+    ctx.fillStyle = i == 0 ? "green" : "red"; //fillStyle устанавливает или возвращает цвет, градиент или шаблон, используемый для заливки графического объекта
     ctx.fillRect(snake[i].x, snake[i].y, box, box); //fillRect() рисует "залитый" прямоугольник
   }
   ctx.fillStyle = "white";
@@ -61,6 +61,10 @@ function drawGame() {
   } else {
     snake.pop(); // .pop удаляет последний элемент в массиве
   }
+
+  if(snakeX < box || snakeX > box * 17
+    || snakeY < 3 * box || snakeY > box * 17)
+    clearInterval(game);
 
   if(dir == "left") snakeX -= box;
   if(dir == "right") snakeX += box;
